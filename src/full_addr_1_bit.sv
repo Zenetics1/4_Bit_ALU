@@ -3,7 +3,7 @@ module full_addr_1_bit (
 
     output carry_out, sum
 );
-    wire half_adder_sum, half_adder_carry;
+    logic half_adder_sum, half_adder_carry;
 
     assign half_adder_sum = in1 ^ in2;
     assign half_adder_carry = in1 & in2;

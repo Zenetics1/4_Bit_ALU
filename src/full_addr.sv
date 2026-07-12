@@ -6,7 +6,7 @@ module full_addr #(
     output Carry_MSB
 );
 
-    wire Carry_Bit0_to_Bit1, Carry_Bit1_to_Bit2, Carry_Bit2_to_Bit3;
+    logic Carry_Bit0_to_Bit1, Carry_Bit1_to_Bit2, Carry_Bit2_to_Bit3;
 
     full_addr_1_bit bit0(
         .in1(num1_IN[0]),
@@ -39,9 +39,6 @@ module full_addr #(
         .carry_out(Carry_MSB),
         .sum(ADDR_OUT[3])
     );
-
-
-
 
 
 endmodule
