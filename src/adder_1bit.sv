@@ -1,4 +1,4 @@
-module full_addr_1_bit (
+module adder_1bit (
     input in1, in2, carry_in,
 
     output carry_out, sum
