@@ -2,7 +2,8 @@ module full_adder_8bit(
     input carry_in,
     input [7 : 0] IN1, IN2,
     output [7 : 0] ADDR_OUT,
-    output Carry_MSB
+    output Carry_MSB,
+    output carry_in_MSB
 );
 
     logic Carry_B0_B1, Carry_B1_B2, Carry_B2_B3, Carry_B3_B4, Carry_B4_B5, Carry_B5_B6, Carry_B6_B7;
@@ -66,5 +67,7 @@ module full_adder_8bit(
         .carry_out(Carry_MSB),
         .sum(ADDR_OUT[7])
     );
+
+    assign carry_in_MSB = Carry_B6_B7;
 
 endmodule
