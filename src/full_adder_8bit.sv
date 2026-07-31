@@ -1,4 +1,6 @@
-module full_adder_8bit(
+module full_adder_8bit #(
+    parameter WIDTH = 8;
+)(
     input carry_in,
     input [7 : 0] IN1, IN2,
     output [7 : 0] ADDR_OUT,
