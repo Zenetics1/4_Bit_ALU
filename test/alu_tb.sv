@@ -76,12 +76,12 @@ module alu_tb;
         adder_cin = (tr.OP == 3'b001) ? 1'b1 : tr.carry_in;
         b_mux     = (tr.OP == 3'b001) ? ~tr.B : tr.B;
 
-        sum_full = {1'b0, tr.A} + {1'b0, b_mux} + adder_cin;
-        sum_low  = {1'b0, tr.A[MAX_SIZE-2:0]} + {1'b0, b_mux[MAX_SIZE-2:0]} + adder_cin;
-        carry_in_msb = sum_low[MAX_SIZE-1];
+        sum_overflow = {1'b0, tr.A} + {1'b0, b_mux} + adder_cin;
+        sum_full = {1'b0, tr.A[MAX_SIZE-2:0]} + {1'b0, b_mux[MAX_SIZE-2:0]} + adder_cin;
+        carry_in_msb = sum_full[MAX_SIZE-1];
 
         case (tr.OP)
-            3'b000, 3'b001: exp_result = sum_full[MAX_SIZE-1:0];
+            3'b000, 3'b001: exp_result = sum_overflow[MAX_SIZE-1:0];
             3'b010:         exp_result = tr.A & tr.B;
             3'b011:         exp_result = tr.A | tr.B;
             3'b100:         exp_result = tr.A ^ tr.B;
@@ -95,8 +95,8 @@ module alu_tb;
         exp_neg  = exp_result[MAX_SIZE-1];
 
         if (tr.OP == 3'b000 || tr.OP == 3'b001) begin
-            exp_carry    = sum_full[MAX_SIZE];
-            exp_overflow = carry_in_msb ^ sum_full[MAX_SIZE];
+            exp_carry    = sum_overflow[MAX_SIZE];
+            exp_overflow = carry_in_msb ^ sum_overflow[MAX_SIZE];
         end else begin
             exp_carry    = 1'b0;
             exp_overflow = 1'b0;
