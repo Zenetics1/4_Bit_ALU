@@ -1,5 +1,5 @@
 module full_adder_8bit #(
-    parameter WIDTH = 8;
+    parameter WIDTH = 8
 )(
     input carry_in,
     input [7 : 0] IN1, IN2,

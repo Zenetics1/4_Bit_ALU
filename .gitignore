@@ -1,0 +1,26 @@
+# Vivado generated project (created by script/alu.tcl)
+build/
+*.Xil/
+.Xil/
+*.cache/
+*.hw/
+*.ip_user_files/
+*.sim/
+*.runs/
+*.srcs/
+
+# Vivado logs / journals
+vivado*.log
+vivado*.jou
+vivado*.str
+webtalk*.log
+webtalk*.jou
+*.wdb
+*.pb
+*.jou
+*.log
+
+# Editor / OS
+.vscode/
+.DS_Store
+Thumbs.db
