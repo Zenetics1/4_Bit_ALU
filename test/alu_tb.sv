@@ -69,6 +69,7 @@ module alu_tb;
     );
         logic adder_cin;
         logic [MAX_SIZE-1 : 0] b_mux;
+        logic [MAX_SIZE : 0]   sum_overflow;
         logic [MAX_SIZE : 0]   sum_full;
         logic [MAX_SIZE-1 : 0] sum_low;
         logic carry_in_msb;
@@ -121,6 +122,197 @@ module alu_tb;
         end
     endtask
 
+    task automatic test_add_zero_carry_1(alu_transaction#(MAX_SIZE) tr);
+        tr.OP = 1'b000;
+        tr.A = 8'b00000000;
+        tr.B = 8'b00000000;
+        tr.carry_in = 1'b1;
+
+        OP = tr.OP;
+        A = tr.A;
+        B = tr.B;
+        carry_in = tr.carry_in;
+        
+        #10
+
+        tr.result = result;
+        tr.flag_zero = flag_zero;
+        tr.flag_carry = flag_carry;
+        tr.flag_neg = flag_neg;
+        tr.flag_overflow = flag_overflow;
+
+        tr.display("DRIVEN");
+
+        check(tr);
+    endtask
+
+    task automatic test_sub_zero_carry_1(alu_transaction#(MAX_SIZE) tr);
+        tr.OP = 1'b001;
+        tr.A = 8'b00000000;
+        tr.B = 8'b00000000;
+        tr.carry_in = 1'b1;
+
+        OP = tr.OP;
+        A = tr.A;
+        B = tr.B;
+        carry_in = tr.carry_in;
+        
+        #10
+
+        tr.result = result;
+        tr.flag_zero = flag_zero;
+        tr.flag_carry = flag_carry;
+        tr.flag_neg = flag_neg;
+        tr.flag_overflow = flag_overflow;
+
+        tr.display("DRIVEN");
+
+        check(tr);
+    endtask
+
+    task automatic test_add_zero_carry_0(alu_transaction#(MAX_SIZE) tr);
+        tr.OP = 1'b000;
+        tr.A = 8'b00000000;
+        tr.B = 8'b00000000;
+        tr.carry_in = 1'b0;
+
+        OP = tr.OP;
+        A = tr.A;
+        B = tr.B;
+        carry_in = tr.carry_in;
+        
+        #10
+
+        tr.result = result;
+        tr.flag_zero = flag_zero;
+        tr.flag_carry = flag_carry;
+        tr.flag_neg = flag_neg;
+        tr.flag_overflow = flag_overflow;
+
+        tr.display("DRIVEN");
+
+        check(tr);
+    endtask
+
+    task automatic test_sub_zero_carry_0(alu_transaction#(MAX_SIZE) tr);
+        tr.OP = 1'b001;
+        tr.A = 8'b00000000;
+        tr.B = 8'b00000000;
+        tr.carry_in = 1'b0;
+
+        OP = tr.OP;
+        A = tr.A;
+        B = tr.B;
+        carry_in = tr.carry_in;
+        
+        #10
+
+        tr.result = result;
+        tr.flag_zero = flag_zero;
+        tr.flag_carry = flag_carry;
+        tr.flag_neg = flag_neg;
+        tr.flag_overflow = flag_overflow;
+
+        tr.display("DRIVEN");
+
+        check(tr);
+    endtask
+
+    task automatic test_add_max_carry_1(alu_transaction#(MAX_SIZE) tr);
+        tr.OP = 1'b000;
+        tr.A = 8'b01111111;
+        tr.B = 8'b01111111;
+        tr.carry_in = 1'b1;
+
+        OP = tr.OP;
+        A = tr.A;
+        B = tr.B;
+        carry_in = tr.carry_in;
+        
+        #10
+
+        tr.result = result;
+        tr.flag_zero = flag_zero;
+        tr.flag_carry = flag_carry;
+        tr.flag_neg = flag_neg;
+        tr.flag_overflow = flag_overflow;
+
+        tr.display("DRIVEN");
+
+        check(tr);
+    endtask
+    
+    task automatic test_sub_max_carry_1(alu_transaction#(MAX_SIZE) tr);
+        tr.OP = 1'b001;
+        tr.A = 8'b01111111;
+        tr.B = 8'b01111111;
+        tr.carry_in = 1'b1;
+
+        OP = tr.OP;
+        A = tr.A;
+        B = tr.B;
+        carry_in = tr.carry_in;
+        
+        #10
+
+        tr.result = result;
+        tr.flag_zero = flag_zero;
+        tr.flag_carry = flag_carry;
+        tr.flag_neg = flag_neg;
+        tr.flag_overflow = flag_overflow;
+
+        tr.display("DRIVEN");
+
+        check(tr);
+    endtask
+
+    task automatic test_add_max_carry_0(alu_transaction#(MAX_SIZE) tr);
+        tr.OP = 1'b000;
+        tr.A = 8'b01111111;
+        tr.B = 8'b01111111;
+        tr.carry_in = 1'b0;
+
+        OP = tr.OP;
+        A = tr.A;
+        B = tr.B;
+        carry_in = tr.carry_in;
+        
+        #10
+
+        tr.result = result;
+        tr.flag_zero = flag_zero;
+        tr.flag_carry = flag_carry;
+        tr.flag_neg = flag_neg;
+        tr.flag_overflow = flag_overflow;
+
+        tr.display("DRIVEN");
+
+        check(tr);
+    endtask
+
+    task automatic test_sub_max_carry_0(alu_transaction#(MAX_SIZE) tr);
+        tr.OP = 1'b001;
+        tr.A = 8'b01111111;
+        tr.B = 8'b01111111;
+        tr.carry_in = 1'b0;
+
+        OP = tr.OP;
+        A = tr.A;
+        B = tr.B;
+        carry_in = tr.carry_in;
+        
+        #10
+
+        tr.result = result;
+        tr.flag_zero = flag_zero;
+        tr.flag_carry = flag_carry;
+        tr.flag_neg = flag_neg;
+        tr.flag_overflow = flag_overflow;
+
+        tr.display("DRIVEN");
+
+        check(tr);
+    endtask
     initial begin
 
         automatic alu_transaction #(MAX_SIZE) trans = new();
@@ -130,6 +322,15 @@ module alu_tb;
         $display("==============================================");
 
         $display("\n--- Running Random Simulus Tests ---");
+        test_add_zero_carry_1(trans);
+        test_sub_zero_carry_1(trans);
+        test_add_zero_carry_0(trans);
+        test_sub_zero_carry_0(trans);
+        test_add_max_carry_1(trans);
+        test_sub_max_carry_1(trans);
+        test_add_max_carry_0(trans);
+        test_sub_max_carry_0(trans);
+
         repeat (100) begin
             if(!trans.randomize()) begin
                 $error("Randomization Failed");

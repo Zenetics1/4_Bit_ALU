@@ -8,6 +8,7 @@ add_files -norecurse [list \
     "$repo_dir/src/full_adder_8bit.sv" \
     "$repo_dir/src/top_module.sv" \
 ]
+
 set_property top top_module [current_fileset]
 
 add_files -fileset sim_1 -norecurse [list "$repo_dir/test/alu_tb.sv"]
